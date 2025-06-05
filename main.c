@@ -5,25 +5,26 @@
 #include "graph.h"
 #include <stdbool.h>
 
-// returns true if succeeded
-bool openFile(char const *filename[], FILE *file);
+FILE * openFile(char const *filename);
 
 int main(int argc, char const *argv[])
 {
     FILE *file = NULL;
     Graph graph = NULL;
+
     switch (argc)
     {
     case 1:
-        printf("Program usage: main [file]");
+        printf("Program usage: main [file]\n");
         return 1;
         break;
 
     case 2: 
-        if(openFile(argv[1], file) == false){
+
+        if((file = openFile(argv[1]) ) == NULL)
+        {
             return 1;
         }
-
         graph = loadGraph(file, graph);
             
         depthFirstSearch(graph);
@@ -43,11 +44,13 @@ int main(int argc, char const *argv[])
 }
 
 
-bool openFile(char const *filename[], FILE *file){
-    
-    if(file = fopen(filename, "r") == NULL){
-        printf("Error opening the file: ", strerror(errno) );
-        return false;
+FILE * openFile(char const *filename){
+
+    FILE *file = fopen(filename, "r");
+
+    if(file == NULL){
+        printf("Error opening the file: %s\n", strerror(errno) );
+        return NULL;
     } 
-    return true;
+    return file;
 }

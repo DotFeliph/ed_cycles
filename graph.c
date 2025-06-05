@@ -21,33 +21,29 @@ struct stack{
 VertexMap *vertex_map = NULL; 
 
 
-
 Graph textToGraph(FILE *file, Graph G, size_t totalVertex)
 {
     char from_ad[43], to_ad[43];
-    int nextIndex = 0;
     VertexMap *v, *w;
+    size_t from_index, to_index, nextIndex = 0;
 
     G = initGraph(totalVertex);
-
     for(size_t i = 0; i < totalVertex; i++){
         fscanf(file, "%s %s", from_ad, to_ad);
-        
-        HASH_FIND_STR(vertex_map, from_ad, v);
-        int from_index = v->index;
 
-        HASH_FIND_STR(vertex_map, from_ad, v);
-        int to_index = v->index;
-        
-        insertEdge(G, from_ad, to_ad);
+        from_index = getVertexIndex(from_ad, &nextIndex);
+        to_index = getVertexIndex(to_ad, &nextIndex);
+
+        insertEdge(G, from_index, to_index);
     }
 
     return G;
 }
 
-void addToHash(const char *name, int *current_index)
+void addToHash(const char *name, size_t *current_index)
 {
     VertexMap *v;
+
     HASH_FIND_STR(vertex_map, name, v);
         if (v == NULL) {
             v = malloc(sizeof(VertexMap));
@@ -61,34 +57,31 @@ void addToHash(const char *name, int *current_index)
 size_t addAllVertexToHashmap(FILE *file)
 {
     VertexMap *v;
-    char from_ad[44], to_ad[44];
+    char from_ad[43], to_ad[43];
     size_t index = 0;
 
     while(fscanf(file, "%s %s", from_ad, to_ad) == 2){
         addToHash(from_ad, &index);
         addToHash(to_ad, &index);
     }
-    
+
     return index;
 }
 
 Graph loadGraph(FILE *file, Graph graph)
 {
     size_t graphSize = addAllVertexToHashmap(file);
+
+    printf(" graph size: %lu\n", graphSize);
+    rewind(file);
     graph = textToGraph(file, graph, graphSize);
+
     return graph;
 }
 
-int getVertexIndex(const char *name, int *nextIndex) {
+size_t getVertexIndex(const char *name, size_t *nextIndex) {    
     VertexMap *v;
-
     HASH_FIND_STR(vertex_map, name, v);
-    if (v == NULL) {
-        v = malloc(sizeof(VertexMap));
-        strcpy(v->key, name);
-        v->index = (*nextIndex)++;
-        HASH_ADD_STR(vertex_map, key, v);
-    }
     return v->index;
 }
 
@@ -123,29 +116,6 @@ static int *initArray(int size)
     return a;
 }
 
-Graph insertTextGraph(FILE *file, Graph G)
-{
-    int totalVertex;
-    char vName[50], wName[50];
-    int nextIndex = 0;
-
-    if (fscanf(file, "%d", &totalVertex) != 1)
-    {
-        printf("Error!\n");
-        return NULL;
-    }
-
-    G = initGraph(totalVertex);
-
-    while (fscanf(file, "%s %s", vName, wName) == 2)
-    {
-        int v = getVertexIndex(vName, &nextIndex);
-        int w = getVertexIndex(wName, &nextIndex);
-        insertEdge(G, v, w);
-    }
-
-    return G;
-}
 
 Graph initGraph(int V)
 {

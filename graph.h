@@ -13,7 +13,7 @@ typedef struct stack Stack;
 
 typedef struct vertex_map {
     char key[43];
-    int index;
+    size_t index;
     UT_hash_handle hh;
 } VertexMap;
 
@@ -21,7 +21,7 @@ typedef struct vertex_map {
 extern VertexMap *vertex_map ;
 
 // Funções
-int getVertexIndex(const char *name, int *nextIndex);
+size_t getVertexIndex(const char *name, size_t *nextIndex);
 VertexMap *findVertexByName(VertexMap *vertexMap, const char *name);
 void printVertexMap(VertexMap *vertexMap);
 void freeVertexMap();
@@ -47,7 +47,7 @@ void recursiveDFS(Graph G, int *visited, int *recStack, int v);
 
 Graph loadGraph(FILE *file, Graph graph);
 Graph textToGraph(FILE *file, Graph G, size_t totalVertex);
-void addToHash(const char *name, int *current_index);
+void addToHash(const char *name, size_t *current_index);
 size_t addAllVertexToHashmap(FILE *file);
 
 #endif
