@@ -5,17 +5,19 @@
 #include "graph.h"
 #include <stdbool.h>
 
+#define MAX_FILENAME 50;
+
 FILE * openFile(char const *filename);
 
 int main(int argc, char const *argv[])
 {
     FILE *file = NULL;
     Graph graph = NULL;
-
+    // TODO: give examples files, ang give options to the user to choose
     switch (argc)
     {
     case 1:
-        printf("Program usage: main [file]\n");
+        printf("Program usagem: ./main [FILENAME] \n");
         return 1;
         break;
 

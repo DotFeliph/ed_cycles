@@ -21,7 +21,7 @@ struct stack{
 VertexMap *vertex_map = NULL; 
 
 
-Graph textToGraph(FILE *file, Graph G, size_t totalVertex)
+Graph hashToGraph(FILE *file, Graph G, size_t totalVertex)
 {
     char from_ad[43], to_ad[43];
     VertexMap *v, *w;

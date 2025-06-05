@@ -46,7 +46,7 @@ void depthFirstSearch(Graph G);
 void recursiveDFS(Graph G, int *visited, int *recStack, int v);
 
 Graph loadGraph(FILE *file, Graph graph);
-Graph textToGraph(FILE *file, Graph G, size_t totalVertex);
+Graph hashToGraph(FILE *file, Graph G, size_t totalVertex);
 void addToHash(const char *name, size_t *current_index);
 size_t addAllVertexToHashmap(FILE *file);
 
