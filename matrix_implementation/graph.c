@@ -51,6 +51,7 @@ void addToHash(const char *name, size_t *current_index)
             v->index = (*current_index)++;
             HASH_ADD_STR(vertex_map, key, v);
         }
+    
 }
 
 // fill the hashmap, and returns how many nodes the graph has

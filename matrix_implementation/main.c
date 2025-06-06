@@ -3,7 +3,6 @@
 #include <string.h>
 #include <errno.h>
 #include "graph.h"
-#include <stdbool.h>
 
 #define MAX_FILENAME 50;
 

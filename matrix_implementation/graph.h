@@ -26,8 +26,6 @@ VertexMap *findVertexByName(VertexMap *vertexMap, const char *name);
 void printVertexMap(VertexMap *vertexMap);
 void freeVertexMap();
 
-Graph insertTextGraph(FILE *file, Graph G);
-
 Graph initGraph(int V);
 static int **initAdjMatrix(int row, int column);
 static int *initArray(int size);
