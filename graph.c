@@ -74,7 +74,7 @@ Graph loadGraph(FILE *file, Graph graph)
 
     printf(" graph size: %lu\n", graphSize);
     rewind(file);
-    graph = textToGraph(file, graph, graphSize);
+    graph = hashToGraph(file, graph, graphSize);
 
     return graph;
 }
